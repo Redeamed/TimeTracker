@@ -14,7 +14,7 @@ public class TimeDayDisplay : MonoBehaviour
     void Awake()
     {
         text = GetComponent<Text>();
-        weekDays = new string[8];
+        weekDays = new string[(int)Days.NewYears + 1];
         weekDays[0] = "Sunday";
         weekDays[1] = "Monday";
         weekDays[2] = "Tuesday";
@@ -23,7 +23,7 @@ public class TimeDayDisplay : MonoBehaviour
         weekDays[5] = "Friday";
         weekDays[6] = "Satday";
         weekDays[7] = "New Years day";
-        seasons = new string[(int)Months.Winter+1];
+        seasons = new string[(int)Seasons.Winter+1];
         seasons[0] = "Spring";
         seasons[1] = "Summer";
         seasons[2] = "Fall";
@@ -31,18 +31,17 @@ public class TimeDayDisplay : MonoBehaviour
     }
     void Start()
     {
-        CalanderScript.instance.nextAction += Action;
+        CalanderScript.instance.EvUpdateTime += Action;
         CalanderScript.instance.newDayDel += UpdateDay;
+
         day = weekDays[0];
         season = seasons[0];
-        UpdateTime();
-        DisplayTime();
-    }
 
-    public void Action()
+        Action(new calTime());
+    }
+    public void Action(calTime gTime)
     {
-        
-        UpdateTime();
+        UpdateTime(gTime);
         DisplayTime();
     }
     public void UpdateDay(Days newDay)
@@ -51,19 +50,14 @@ public class TimeDayDisplay : MonoBehaviour
         day = weekDays[temp];
 
     }
-    void UpdateTime()
+    void UpdateTime(calTime gTime)
     {
-        int hours = 0;
-        int minutes = CalanderScript.instance.minuteTime;
-
-        while (minutes >= CalanderScript.MINUTESPERHOUR)
-        {
-            hours++;
-            minutes -= CalanderScript.MINUTESPERHOUR;
-        }
+        int hours   = gTime.hour;
+        int minutes = gTime.minute;
+        
         time = hours + ":" + minutes;
     }
-    void UpdateSeason(Months value)
+    void UpdateSeason(Seasons value)
     {
         
     }
