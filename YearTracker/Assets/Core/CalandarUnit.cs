@@ -71,17 +71,18 @@ public class CalandarUnit : MonoBehaviour
 
     public void NextAction(calTime gTime)
     {
-        if (targetTime.hour >= gTime.hour &&
-            targetTime.minute >= gTime.minute)
+        if (targetTime.hour <= gTime.hour &&
+            targetTime.minute <= gTime.minute)
         {
             actionValue++;
-        }
         ActionSet(actionValue, gTime);
+        }
 
     }
     public void ActionSet(int value, calTime gTime)
     {
-        if (value < CalanderScript.ACTIONSPERDAY)
+
+        if (value < currentActions.Count)
         {
             currentAction = currentActions[value];
             if (currentAction.action != null)
@@ -92,15 +93,19 @@ public class CalandarUnit : MonoBehaviour
         }
         else
         {
-            Debug.Log("Action Set Value out of range: " + value);
+            Debug.Log("Action List not long enough for value of " + value);
         }
+            
 
     }
     //in the NPCUnit class something like
     public void NewDay(Days newDay)
     {
-
+        actionValue = 0;
         currentActions = dayActions[(int)newDay];
+        currentAction = currentActions[0];
+        TargetTimeSet(new calTime());
+        
 
         //What if no schedule for special day?
 

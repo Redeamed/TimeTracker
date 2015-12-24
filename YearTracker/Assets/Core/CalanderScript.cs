@@ -44,7 +44,8 @@ public class CalanderScript : MonoBehaviour
     public const int MINUTESPERHOUR = 60; // minutes
     public const int ACTIONSPER = 10; //in minutes
 
-    public const int ACTIONSPERDAY = DAYLENGTH / ACTIONSPER;//frequency of actions to be replaced?
+    //old
+    //public const int ACTIONSPERDAY = DAYLENGTH * ACTIONSPER;//frequency of actions to be replaced?
 
 
     public static CalanderScript instance;
